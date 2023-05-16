@@ -65,11 +65,11 @@
 <body>
     <h1>Add New Contact</h1>
     <div class="form-container">
-        <form th:action="@{/contact}" method="post">
-            <label for="name">Name:</label><br>
-            <input type="text" id="name" name="name"><br>
-            <label for="forename">Forename:</label><br>
-            <input type="text" id="forename" name="forename"><br>
+        <form th:action="@{/contact}" th:object="${contact}" method="post">
+            <label for="firstName">Name:</label><br>
+            <input type="text" id="firstName" th:field="*{firstName}"><br>
+            <label for="lastName">Forename:</label><br>
+            <input type="text" id="lastName" th:field="*{lastName}"><br>
             <button type="submit">Submit</button>
         </form>
     </div>

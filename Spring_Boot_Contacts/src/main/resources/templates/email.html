@@ -66,9 +66,9 @@
 <body>
 <h1>Add New Email to a contact</h1>
 <div class="form-container">
-    <form th:action="@{/contact}" method="post">
-        <label for="idContact">Contact id:</label><br>
-        <input type="number" id="idContact" name="idContact"><br>
+    <form th:action="@{/contact/email}" method="post">
+        <label for="contactId">Contact id:</label><br>
+        <input type="number" id="contactId" name="contactId"><br>
         <label for="email">Email:</label><br>
         <input type="email" id="email" name="email"><br>
         <button type="submit">Submit</button>
