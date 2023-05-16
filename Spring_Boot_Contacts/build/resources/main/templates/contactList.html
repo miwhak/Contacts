@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Contacts</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin: 0;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .home-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .home-button a {
+            display: inline-block;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<h1>Contacts</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Emails</th>
+        <th>Addresses</th>
+    </tr>
+    <tr th:each="contact : ${contacts}">
+        <td th:text="${contact.id}"></td>
+        <td th:text="${contact.firstName + ' ' + contact.lastName}"></td>
+        <td>
+            <ul>
+                <li th:if="${!#lists.isEmpty(contact.emailAddresses)}"
+                    th:each="email : ${contact.emailAddresses}"
+                    th:text="${email.address}">
+                </li>
+                <li th:if="${#lists.isEmpty(contact.emailAddresses)}">No Emails</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li th:if="${!#lists.isEmpty(contact.postalAddresses)}"
+                    th:each="address : ${contact.postalAddresses}">
+                    <span th:text="${address.street + ', ' + address.city + ', ' + address.state + ' ' + address.postalCode + ', ' + address.country}"></span>
+                </li>
+                <li th:if="${#lists.isEmpty(contact.postalAddresses)}">No Addresses</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+<div class="home-button">
+    <a href="/" th:href="@{/}">Home</a>
+</div>
+
+</body>
+</html>

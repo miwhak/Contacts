@@ -9,6 +9,7 @@ import com.example.repositories.PostalAddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -72,5 +73,9 @@ public class ContactService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid contact Id:" + id));
     }
 
+
+    public List<Contact> getAllContacts() {
+        return contactRepository.findAll();
+    }
 
 }

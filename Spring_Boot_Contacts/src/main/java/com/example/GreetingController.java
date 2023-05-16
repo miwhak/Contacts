@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class GreetingController {
 
@@ -108,6 +110,12 @@ public class GreetingController {
         return "redirect:/home";
     }
 
+    @GetMapping("/contacts")
+    public String getAllContacts(Model model) {
+        List<Contact> contacts = contactService.getAllContacts();
+        model.addAttribute("contacts", contacts);
+        return "contactList";
+    }
 
 
 
