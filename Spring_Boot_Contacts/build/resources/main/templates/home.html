@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin: 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+            background-color: #333;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 25px;
+            display: inline-block;
+        }
+
+        nav ul li a:hover {
+            background-color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+<h1>Welcome to Contact Management System</h1>
+<nav>
+    <ul>
+        <li><a th:href="@{/contacts}">Show Contacts</a></li>
+        <li><a th:href="@{/contact}">Add New Contact</a></li>
+        <li><a th:href="@{/contact/email}">Add Email Address to a Contact</a></li>
+        <li><a th:href="@{/contact/address}">Add Postal Address to a Contact</a></li>
+    </ul>
+</nav>
+</body>
+</html>
