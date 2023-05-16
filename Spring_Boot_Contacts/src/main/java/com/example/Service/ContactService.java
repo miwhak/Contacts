@@ -2,8 +2,10 @@ package com.example.Service;
 
 import com.example.model.Contact;
 import com.example.model.EmailAddress;
+import com.example.model.PostalAddress;
 import com.example.repositories.ContactRepository;
 import com.example.repositories.EmailAddressRepository;
+import com.example.repositories.PostalAddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ public class ContactService {
     private ContactRepository contactRepository;
     @Autowired
     private EmailAddressRepository emailAddressRepository;
+    @Autowired
+    private PostalAddressRepository postalAddressRepository;
 
     public Contact saveContact(Contact contact) {
         return contactRepository.save(contact);
@@ -40,10 +44,33 @@ public class ContactService {
         return "Email address added successfully to the contact";
 
     }
+    public String checkAndAddAddressToContact(Contact contact, PostalAddress address) {
+        Optional<PostalAddress> existingAddress = postalAddressRepository.findByStreetAndCityAndStateAndPostalCodeAndCountry(
+                address.getStreet(),
+                address.getCity(),
+                address.getState(),
+                address.getPostalCode(),
+                address.getCountry()
+        );
+
+        if (existingAddress.isPresent()) {
+            if (contact.getPostalAddresses().contains(existingAddress.get())) {
+                return "The contact already has this postal address";
+            }
+            existingAddress.get().addContact(contact);
+            postalAddressRepository.save(existingAddress.get());
+            return "Postal address added to the contact";
+        } else {
+            address.addContact(contact);
+            postalAddressRepository.save(address);
+            return "New postal address created and added to the contact";
+        }
+    }
 
     public Contact getContact(Long id) {
         return contactRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid contact Id:" + id));
     }
+
 
 }
