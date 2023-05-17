@@ -3,6 +3,7 @@ package com.example;
 import com.example.Service.ContactService;
 import com.example.model.Contact;
 import com.example.model.PostalAddress;
+import com.example.repositories.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,9 @@ public class GreetingController {
     }
     @Autowired
     private ContactService contactService;
+    @Autowired
+    private ContactRepository contactRepository;
+
 
     @PostMapping("/contact")
     public String saveContact(@ModelAttribute Contact contact, Model model) {
@@ -117,6 +121,23 @@ public class GreetingController {
         return "contactList";
     }
 
+    @GetMapping("/contact/delete/{id}")
+    public String deleteContact(@PathVariable("id") long id, Model model) {
+        Contact contact = contactRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid contact Id:" + id));
+        contactRepository.delete(contact);
+        model.addAttribute("contacts", contactRepository.findAll());
+        return "contactList";
+    }
+    @GetMapping("/contact/modify/{id}")
+    public String showUpdateForm(@PathVariable("id") long id, Model model) {
+        Contact contact = contactRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid contact Id:" + id));
+        model.addAttribute("contact", contact);
+        return "modifyContact";
+    }
+
+
 
 
     @ExceptionHandler(Exception.class)
@@ -125,5 +146,6 @@ public class GreetingController {
         model.addAttribute("errorMessage", e.getMessage());
         return "error";
     }
+
 
 }
