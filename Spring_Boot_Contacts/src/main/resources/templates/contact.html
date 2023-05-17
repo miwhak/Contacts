@@ -60,6 +60,14 @@
             text-decoration: none;
             font-size: 16px;
         }
+         .home-button a:hover {
+            background-color: #0056b3; /* Darker Blue */
+        }
+        .submit-button:hover {
+            background-color: #0056b3; /* Darker Blue */
+        }
+
+
     </style>
 </head>
 <body>
@@ -70,7 +78,7 @@
             <input type="text" id="firstName" th:field="*{firstName}"><br>
             <label for="lastName">Forename:</label><br>
             <input type="text" id="lastName" th:field="*{lastName}"><br>
-            <button type="submit">Submit</button>
+            <button type="submit" class="submit-button">Submit</button>
         </form>
     </div>
     <div class="home-button">

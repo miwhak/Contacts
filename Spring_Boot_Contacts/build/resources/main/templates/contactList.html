@@ -51,6 +51,35 @@
             text-decoration: none;
             font-size: 16px;
         }
+        .delete-button {
+            display: inline-block;
+            background-color: #007BFF; /* Blue */
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.5s ease; /* This will make the color change smoothly */
+        }
+
+        .delete-button:hover {
+            background-color: #FF0000; /* Red */
+        }
+
+        .action-button {
+            display: inline-block;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .action-button:hover, .home-button a:hover {
+            background-color: #0056b3; /* Darker Blue */
+        }
+
+
+
+
     </style>
 </head>
 <body>
@@ -82,6 +111,12 @@
                 </li>
                 <li th:if="${#lists.isEmpty(contact.postalAddresses)}">No Addresses</li>
             </ul>
+        </td>
+        <td>
+            <!-- Modify button -->
+            <a th:href="@{/contact/modify/{id}(id=${contact.id})}" class="action-button">Modify</a>
+            <!-- Delete button -->
+            <a th:href="@{/contact/delete/{id}(id=${contact.id})}" class="delete-button">Delete</a>
         </td>
     </tr>
 </table>
